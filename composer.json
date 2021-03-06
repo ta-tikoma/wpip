@@ -1,0 +1,8 @@
+{
+    "name": "ta-tikoma/wpip",
+    "description": "Write php in php",
+    "type": "project",
+    "license": "Apache License 2.0",
+    "minimum-stability": "dev",
+    "require": {}
+}
