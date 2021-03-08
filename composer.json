@@ -4,5 +4,14 @@
     "type": "project",
     "license": "Apache License 2.0",
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "php-di/php-di": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "WPIP\\": "src/",
+            "WPIP\\Packages\\": "packages/",
+            "WPIP\\Contracts\\": "contracts/"
+        }
+    }
 }
