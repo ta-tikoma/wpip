@@ -3,8 +3,10 @@
 namespace WPIP\Models\Screen;
 
 use WPIP\Contracts\Models\LayerContract;
+use WPIP\Models\Position;
 use WPIP\Models\Screen\Cell\Cell;
 use WPIP\Models\Screen\Layer\OldLayer;
+use WPIP\Models\Size;
 
 final class Screen
 {
@@ -13,32 +15,38 @@ final class Screen
      */
     private $layers = [];
 
-
     /**
      * @var OldLayer
      */
     private $oldLayer = null;
 
     /**
-     * @var int
+     * @var Size
      */
-    public $width;
-
-    /**
-     * @var int
-     */
-    public $height;
+    public $size;
 
     public function appendLayer(string $layerName): LayerContract
     {
-        $layer = new $layerName($this->width, $this->height);
+        $layer = new $layerName($this->size);
         $this->layers[] = $layer;
         return $layer;
     }
 
-    private function approximation(): LayerContract
+    public function approximationCell(Position $position): Cell
     {
-        $finalLayer = new OldLayer($this->width, $this->height);
+        $cell = new Cell();
+        foreach ($this->layers as $layer) {
+            $cell->copy(
+                $layer->getCell($position)
+            );
+        }
+
+        return $cell;
+    }
+
+    private function approximationLayer(): LayerContract
+    {
+        $finalLayer = new OldLayer($this->size);
 
         foreach ($this->layers as $layer) {
             $finalLayer->do(function (Cell $cell, int $x, int $y) use ($layer) {
@@ -62,7 +70,7 @@ final class Screen
 
     public function render(): LayerContract
     {
-        $layer = $this->approximation();
+        $layer = $this->approximationLayer();
 
         $this->layers = [];
         $this->oldLayer = $layer;

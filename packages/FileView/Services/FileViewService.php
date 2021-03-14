@@ -14,9 +14,9 @@ final class FileViewService
 
         $fileContent = file_get_contents($path);
         $lines = explode("\n", $fileContent);
-        $lines = array_map(function ($line) {
-            return $line . "\n";
-        }, $lines);
+        // $lines = array_map(function ($line) {
+        //     return $line . "\n";
+        // }, $lines);
 
         $layer->do(function (Cell $cell, int $x, int $y) use ($lines) {
             if (!isset($lines[$y])) {

@@ -2,39 +2,21 @@
 
 namespace WPIP\Packages\FileView;
 
-use DI\Container;
-use WPIP\Contracts\Medium\Event\EventContract;
-use WPIP\Contracts\Medium\Event\StartEvent;
-use WPIP\Contracts\Package\PackageContract;
-use WPIP\Models\Screen\Screen;
-use WPIP\Packages\FileView\Services\FileViewService;
+use DI\ContainerBuilder;
+use WPIP\Contracts\Listener\ListenerContract;
+use WPIP\Contracts\Provider\ProviderContract;
+use WPIP\Packages\FileView\Listeners\FileViewListener;
 
-final class FileViewPackage implements PackageContract
+use function DI\add;
+use function DI\get;
+
+final class FileViewPackage implements ProviderContract
 {
-    /**
-     * @var FileViewService
-     */
-    private $fileView;
-
-    private $file;
-
-    public function __construct(FileViewService $fileView)
+    public function register(ContainerBuilder $containerBuilder): void
     {
-        $this->fileView = $fileView;
-    }
-
-    public function register(Container $container): void
-    {
-    }
-
-    public function listen(EventContract $event, Screen $screen): void
-    {
-        if ($event instanceof StartEvent) {
-            if (isset($event->arguments[0])) {
-                $this->file = $event->arguments[0];
-            }
-        }
-
-        $this->fileView->view($screen, $this->file);
+        $containerBuilder->addDefinitions([
+            ListenerContract::LISTENER_CONTAINER_LIST =>
+            add(get(FileViewListener::class))
+        ]);
     }
 }

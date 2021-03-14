@@ -2,8 +2,8 @@
 
 namespace WPIP\Models\Screen\Cell;
 
-use WPIP\Models\Cell\Color;
-use WPIP\Models\Cell\Style;
+use WPIP\Models\Color;
+use WPIP\Models\Style;
 
 final class Cell
 {

@@ -2,26 +2,23 @@
 
 namespace WPIP\Packages\Cursors;
 
-use DI\Container;
-use WPIP\Contracts\Medium\Event\EventContract;
-use WPIP\Contracts\Package\PackageContract;
-use WPIP\Models\Screen\Screen;
-use WPIP\Packages\Cursors\Services\CursorService;
+use DI\ContainerBuilder;
+use WPIP\Contracts\Listener\ListenerContract;
+use WPIP\Contracts\Provider\ProviderContract;
+use WPIP\Packages\Cursors\Contracts\CursorRepositoryContract;
+use WPIP\Packages\Cursors\Listeners\CursorListener;
+use WPIP\Packages\Cursors\Repositories\CursorRepository;
 
-final class CursorsPackage implements PackageContract
+use function DI\add;
+use function DI\get;
+
+final class CursorsPackage implements ProviderContract
 {
-    /**
-     * @var CursorService
-     */
-    private $cursorService;
-
-    public function register(Container $container): void
+    public function register(ContainerBuilder $containerBuilder): void
     {
-        $this->cursorService = $container->get(CursorService::class);
-    }
-
-    public function listen(EventContract $event, Screen $screen): void
-    {
-        $this->cursorService->view($event, $screen);
+        $containerBuilder->addDefinitions([
+            ListenerContract::LISTENER_CONTAINER_LIST => add(get(CursorListener::class)),
+            CursorRepositoryContract::class => get(CursorRepository::class)
+        ]);
     }
 }

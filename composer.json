@@ -11,7 +11,6 @@
         "psr-4": {
             "WPIP\\": "src/",
             "WPIP\\Packages\\": "packages/",
-            "WPIP\\Contracts\\": "contracts/"
         }
     }
 }
