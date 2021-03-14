@@ -33,8 +33,6 @@ final class UnixTerminalOutput implements OutputPortContract
 
     public function render(Screen $screen): void
     {
-        // file_put_contents('debug.log', "\nSTART\n", FILE_APPEND);
-        // file_put_contents('debug.log', $screen->size->width, FILE_APPEND);
         $layer = $screen->render();
         $ANSICommands = $this->ANSICommands;
 
@@ -46,7 +44,6 @@ final class UnixTerminalOutput implements OutputPortContract
                     return;
                 }
 
-                file_put_contents('debug.log', "'$cell->value'", FILE_APPEND);
                 $ANSICommands->write($cell);
             },
             function (int $y) use ($ANSICommands, $screen) {
