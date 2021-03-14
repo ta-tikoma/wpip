@@ -14,7 +14,6 @@ final class ANSICommands implements ANSICommandsContract
     private const CLEAR = "\033[2J";
 
     private const NEWLINE = "\n";
-    // private const NEWLINE = "\033[B\033[0H";
 
     private const CURSOR_HIDE = "\033[?25l";
 
@@ -39,11 +38,11 @@ final class ANSICommands implements ANSICommandsContract
         fwrite($this->handle, self::HOME);
     }
 
-    // public function show(): void
-    // {
-    //     fwrite($this->handle, self::CURSOR_SHOW);
-    //     fflush($this->handle);
-    // }
+    public function show(): void
+    {
+        fwrite($this->handle, self::CURSOR_SHOW);
+        fflush($this->handle);
+    }
 
     public function write(Cell $cell): void
     {

@@ -28,7 +28,7 @@ final class Status implements StatusContract
 
     public function remove(string $keeper): void
     {
-        if ($index = array_search($keeper, $this->keepers)) {
+        if (($index = array_search($keeper, $this->keepers)) !== false) {
             unset($this->keepers[$index]);
         }
     }

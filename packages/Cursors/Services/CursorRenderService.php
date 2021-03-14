@@ -3,6 +3,7 @@
 namespace WPIP\Packages\Cursors\Services;
 
 use WPIP\Models\Color;
+use WPIP\Models\Keyboard\Key;
 use WPIP\Models\Position;
 use WPIP\Models\Screen\Screen;
 use WPIP\Packages\Cursors\Contracts\CursorRepositoryContract;
@@ -42,7 +43,7 @@ final class CursorRenderService
         if (is_null(
             $screen->approximationCell($position)->value
         )) {
-            $cell->value = ' ';
+            $cell->value = Key::space()->getKey();
         }
     }
 
@@ -54,7 +55,7 @@ final class CursorRenderService
         if (is_null(
             $screen->approximationCell($position)->value
         )) {
-            $layer->getCell($position)->value = ' ';
+            $layer->getCell($position)->value = Key::space()->getKey();
         }
     }
 }

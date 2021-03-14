@@ -8,6 +8,8 @@ interface ANSICommandsContract
 {
     public function hide(): void;
 
+    public function show(): void;
+
     public function home(): void;
 
     public function write(Cell $cell): void;

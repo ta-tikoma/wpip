@@ -1,6 +1,7 @@
 <?php
 
 use WPIP\Packages\ANSI\ANSIPackage;
+use WPIP\Packages\CommandMode\CommandModePackage;
 use WPIP\Packages\Cursors\CursorsPackage;
 use WPIP\Packages\CursorsMove\CursorsMovePackage;
 use WPIP\Packages\FileView\FileViewPackage;
@@ -13,6 +14,9 @@ return [
     UnixTerminalInputPackage::class,
 
     FileViewPackage::class,
+
     CursorsPackage::class,
     CursorsMovePackage::class,
+
+    CommandModePackage::class,
 ];

@@ -1,37 +1,22 @@
 <?php
 
-namespace packages\CommandMode;
+namespace WPIP\Packages\CommandMode;
 
-use DI\Container;
-use WPIP\CommandMode\Services\CommandModeService;
-use WPIP\Contracts\Medium\Event\EventContract;
-use WPIP\Contracts\Package\PackageContract;
-use WPIP\Models\Package\ListenResult;
-use WPIP\Models\Screen\Screen;
+use DI\ContainerBuilder;
+use WPIP\Contracts\Listener\ListenerContract;
+use WPIP\Contracts\Provider\ProviderContract;
+use WPIP\Packages\CommandMode\Listeners\CommandModeListener;
 
-final class CommandModePackage implements PackageContract
+use function DI\add;
+use function DI\get;
+
+final class CommandModePackage implements ProviderContract
 {
-    /**
-     * @var CommandModeService
-     */
-    private $commandModeService;
-
-    public function __construct(CommandModeService $commandModeService)
+    public function register(ContainerBuilder $containerBuilder): void
     {
-        $this->commandModeService = $commandModeService;
-    }
-
-    public function register(Container $container): void
-    {
-    }
-
-    public function listen(EventContract $event, ListenResult $result): ListenResult
-    {
-        return $this->commandModeService->listen($event, $result);
-    }
-
-    public function render(Screen $screen): void
-    {
-        $this->commandModeService->render($screen);
+        $containerBuilder->addDefinitions([
+            ListenerContract::LISTENER_CONTAINER_LIST =>
+            add(get(CommandModeListener::class))
+        ]);
     }
 }
