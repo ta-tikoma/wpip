@@ -15,8 +15,7 @@ final class FileViewPackage implements ProviderContract
     public function register(ContainerBuilder $containerBuilder): void
     {
         $containerBuilder->addDefinitions([
-            ListenerContract::LISTENER_CONTAINER_LIST =>
-            add(get(FileViewListener::class))
+            ListenerContract::LISTENER_CONTAINER_LIST => add(get(FileViewListener::class))
         ]);
     }
 }
