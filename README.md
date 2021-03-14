@@ -1,3 +1,3 @@
 # WPIP
 
-Terminal text editor in PHP.
+Terminal text editor on PHP.
